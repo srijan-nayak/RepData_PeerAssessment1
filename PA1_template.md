@@ -43,6 +43,25 @@ The dates are parsed according to YYYY-MM-DD format.
 ## What is mean total number of steps taken per day?
 
 
+```r
+# get total steps per day
+steps_by_day <- activity %>% 
+    group_by(date) %>% 
+    summarise(total_steps = sum(steps, na.rm = TRUE))
+
+mean_daily_steps <- mean(steps_by_day$total_steps)
+median_daily_steps <- median(steps_by_day$total_steps)
+
+steps_by_day %>% ggplot(aes(x = total_steps)) +
+    geom_histogram(binwidth = 1000) +
+    labs(x = "Total steps", y = "Count",
+         title = "Distribution of total steps per day")
+```
+
+![](PA1_template_files/figure-html/mean_steps-1.png)<!-- -->
+
+**Mean** total number of steps taken per day = **9354.2295082** \
+**Median** total number of steps taken per day = **10395**
 
 ## What is the average daily activity pattern?
 

@@ -58,7 +58,7 @@ steps_by_day %>% ggplot(aes(x = total_steps)) +
          title = "Distribution of total steps per day")
 ```
 
-![](PA1_template_files/figure-html/mean_steps-1.png)<!-- -->
+![](PA1_template_files/figure-html/daily_steps-1.png)<!-- -->
 
 **Mean** total number of steps taken per day = **9354.2295082** \
 **Median** total number of steps taken per day = **10395**

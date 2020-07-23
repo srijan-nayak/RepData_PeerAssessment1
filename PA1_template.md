@@ -5,6 +5,9 @@ output:
     keep_md: true
 ---
 
+
+
+
 ## Loading required libraries
 
 
@@ -12,9 +15,6 @@ output:
 library(dplyr)
 library(ggplot2)
 library(lubridate)
-
-# disable messages
-knitr::opts_chunk$set(message = FALSE)
 ```
 
 ## Loading and preprocessing the data

@@ -5,15 +5,18 @@ output:
     keep_md: true
 ---
 
+```{r setup, echo=FALSE}
+# disable messages
+knitr::opts_chunk$set(message = FALSE)
+```
+
+
 ## Loading required libraries
 
-```{r setup, message=FALSE}
+```{r load_libraries, message=FALSE}
 library(dplyr)
 library(ggplot2)
 library(lubridate)
-
-# disable messages
-knitr::opts_chunk$set(message = FALSE)
 ```
 
 ## Loading and preprocessing the data

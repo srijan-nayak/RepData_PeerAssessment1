@@ -82,7 +82,7 @@ steps_by_interval %>% ggplot(aes(x = interval, y = avg_steps)) +
          title = "Number of steps in each interval, averaged across days")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+![](PA1_template_files/figure-html/interval_steps-1.png)<!-- -->
 
 On average, the interval **835** contains the **maximum**
 number of steps.

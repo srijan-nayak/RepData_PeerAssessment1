@@ -48,7 +48,7 @@ steps_by_day %>% ggplot(aes(x = total_steps)) +
 
 ## What is the average daily activity pattern?
 
-```{r}
+```{r interval_steps}
 # get the average number of steps per interval, across all days
 steps_by_interval <- activity %>% 
     group_by(interval) %>% 

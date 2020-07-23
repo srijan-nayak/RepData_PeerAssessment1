@@ -86,8 +86,33 @@ complete_activity <- activity %>%  mutate(
 
 head(complete_activity)
 ```
+
 The original dataset contained a total of **`r missing_values_count`** missing
 observations. Each missing observation is replaced with the rounded average
 number of steps taken for the corresponding interval in `complete_activity`.
+
+```{r new_daily_steps}
+# get total steps per day
+new_steps_by_day <- complete_activity %>% 
+    group_by(date) %>% 
+    summarise(total_steps = sum(steps, na.rm = TRUE))
+
+new_mean_daily_steps <- mean(new_steps_by_day$total_steps)
+new_median_daily_steps <- median(new_steps_by_day$total_steps)
+
+new_steps_by_day %>% ggplot(aes(x = total_steps)) +
+    geom_histogram(binwidth = 1000) +
+    labs(x = "Total steps", y = "Count",
+         title = "Distribution of total steps per day")
+```
+
+New **mean** total number of steps taken per day =
+**`r format(new_mean_daily_steps, scientific = FALSE)`** \
+New **median** total number of steps taken per day =
+**`r format(new_median_daily_steps, scientific = FALSE)`**
+
+Imputing the missing values with the interval mean steps brought the mean and
+median close to each other, suggesting that the daily total steps are normally
+distributed.
 
 ## Are there differences in activity patterns between weekdays and weekends?

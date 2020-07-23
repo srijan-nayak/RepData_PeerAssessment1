@@ -10,8 +10,8 @@ output:
 
 ```r
 library(dplyr)
-library(lubridate)
 library(ggplot2)
+library(lubridate)
 
 # disable messages
 knitr::opts_chunk$set(message = FALSE)
@@ -66,6 +66,26 @@ steps_by_day %>% ggplot(aes(x = total_steps)) +
 ## What is the average daily activity pattern?
 
 
+```r
+# get the average number of steps per interval, across all days
+steps_by_interval <- activity %>% 
+    group_by(interval) %>% 
+    summarise(avg_steps = mean(steps, na.rm = TRUE))
+
+max_steps_interval <- steps_by_interval %>%
+    filter(avg_steps == max(avg_steps)) %>% 
+    pull(interval)
+
+steps_by_interval %>% ggplot(aes(x = interval, y = avg_steps)) +
+    geom_line() +
+    labs(x = "Interval", y = "Average steps",
+         title = "Number of steps in each interval, averaged across days")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+
+On average, the interval **835** contains the **maximum**
+number of steps.
 
 ## Imputing missing values
 

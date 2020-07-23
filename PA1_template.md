@@ -152,3 +152,28 @@ median close to each other, suggesting that the daily total steps are normally
 distributed.
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+
+```r
+# weekends: 1 = Sunday, 7 = Saturday
+weekends <- c(1, 7)
+complete_activity <- complete_activity %>% mutate(
+    day_type = as.factor(ifelse(wday(date) %in% weekends, "weekend", "weekday"))
+)
+
+# get the average number of steps per interval for each day type across all days
+new_steps_by_interval <- complete_activity %>% 
+    group_by(interval, day_type) %>% 
+    summarise(avg_steps = mean(steps))
+
+new_steps_by_interval %>% ggplot(aes(x = interval, y = avg_steps)) +
+    geom_line() +
+    facet_grid(rows = vars(day_type)) +
+    labs(x = "Interval", y = "Average steps",
+         title = "Number of steps in each interval, averaged across days")
+```
+
+![](PA1_template_files/figure-html/weekend_comparison-1.png)<!-- -->
+
+As one might expect, the daily activities start a bit late on weekends as
+compared to weekdays.

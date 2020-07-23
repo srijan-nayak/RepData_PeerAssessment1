@@ -69,6 +69,25 @@ number of steps.
 
 ## Imputing missing values
 
+```{r missing_values, cache=TRUE}
+missing_values_count <- sum(is.na(activity$steps))
 
+# get the average steps for a given interval
+mean_interval_steps = function(req_interval) {
+    avg_interval_steps <- steps_by_interval %>% 
+        filter(interval == req_interval) %>% 
+        pull(avg_steps)
+    return(round(avg_interval_steps))
+}
+
+complete_activity <- activity %>%  mutate(
+    steps = ifelse(is.na(steps), sapply(interval, mean_interval_steps), steps)
+)
+
+head(complete_activity)
+```
+The original dataset contained a total of **`r missing_values_count`** missing
+observations. Each missing observation is replaced with the rounded average
+number of steps taken for the corresponding interval in `complete_activity`.
 
 ## Are there differences in activity patterns between weekdays and weekends?

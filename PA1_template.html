@@ -430,6 +430,31 @@ steps_by_interval %&gt;% ggplot(aes(x = interval, y = avg_steps)) +
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
+<pre class="r"><code>missing_values_count &lt;- sum(is.na(activity$steps))
+
+# get the average steps for a given interval
+mean_interval_steps = function(req_interval) {
+    avg_interval_steps &lt;- steps_by_interval %&gt;% 
+        filter(interval == req_interval) %&gt;% 
+        pull(avg_steps)
+    return(round(avg_interval_steps))
+}
+
+complete_activity &lt;- activity %&gt;%  mutate(
+    steps = ifelse(is.na(steps), sapply(interval, mean_interval_steps), steps)
+)
+
+head(complete_activity)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   steps date       interval
+##   &lt;dbl&gt; &lt;date&gt;        &lt;int&gt;
+## 1     2 2012-10-01        0
+## 2     0 2012-10-01        5
+## 3     0 2012-10-01       10
+## 4     0 2012-10-01       15
+## 5     0 2012-10-01       20
+## 6     2 2012-10-01       25</code></pre>
+<p>The original dataset contained a total of <strong>2304</strong> missing observations. Each missing observation is replaced with the rounded average number of steps taken for the corresponding interval in <code>complete_activity</code>.</p>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
